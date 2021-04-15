@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,11 +13,10 @@ using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Conventions;
-using WebStore.Infrastructure.Services;
-using WebStore.Infrastructure.Services.InCookies;
-using WebStore.Infrastructure.Services.InMemory;
-using WebStore.Infrastructure.Services.InSQL;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Services.InCookies;
+using WebStore.Services.Services.InMemory;
+using WebStore.Services.Services.InSQL;
 
 namespace WebStore
 {

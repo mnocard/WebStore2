@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 using WebStore.Domain;
 using WebStore.Domain.Entities;
 using WebStore.Domain.ViewModels;
-using WebStore.Infrastructure.Mapping;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Mapping;
 
-namespace WebStore.Infrastructure.Services.InCookies
+namespace WebStore.Services.Services.InCookies
 {
     public class InCookiesCartService : ICartServices
     {
@@ -61,7 +61,7 @@ namespace WebStore.Infrastructure.Services.InCookies
 
             var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
             if (item is null)
-                cart.Items.Add(new CartItem {ProductId = id});
+                cart.Items.Add(new CartItem { ProductId = id });
             else
                 item.Quantity++;
 
@@ -73,7 +73,7 @@ namespace WebStore.Infrastructure.Services.InCookies
             var cart = Cart;
 
             var item = cart.Items.FirstOrDefault(i => i.ProductId == id);
-            if(item is null) return;
+            if (item is null) return;
 
             if (item.Quantity > 0)
                 item.Quantity--;
