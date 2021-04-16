@@ -10,6 +10,6 @@ namespace WebStore.Interfaces.TestApi
         string Get(int id);
         Uri Create(string value);
         HttpStatusCode Edit(int id, string value);
-        HttpStatusCode Remove(int id);
+        bool Remove(int id);
     }
 }
