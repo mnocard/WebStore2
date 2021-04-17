@@ -68,10 +68,9 @@ namespace WebStore
             });
 
             services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
-            //services.AddTransient<IProductData, InMemoryProductData>();
             services.AddScoped<IProductData, SqlProductData>();
-            services.AddScoped<ICartServices, InCookiesCartService>();
             services.AddScoped<IOrderService, SqlOrderService>();
+            services.AddScoped<ICartServices, InCookiesCartService>();
             services.AddScoped<IValueService, ValuesClient>();
 
             services
