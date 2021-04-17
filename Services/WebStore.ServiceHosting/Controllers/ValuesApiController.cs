@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebStore.ServiceHosting.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/values")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ValuesApiController : ControllerBase
     {
         private static readonly List<string> _Values = Enumerable
             .Range(1, 10)
