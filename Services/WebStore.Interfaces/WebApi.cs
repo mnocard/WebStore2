@@ -7,5 +7,6 @@
         
         public const string Employees = Api + Version1 + "employees";
         public const string Values = Api + Version1 + "values";
+        public const string Products = Api + Version1 + "products";
     }
 }
