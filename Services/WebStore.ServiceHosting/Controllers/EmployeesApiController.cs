@@ -42,7 +42,7 @@ namespace WebStore.ServiceHosting.Controllers
         }
 
         [HttpPost]
-        public int Add(Employee employee)
+        public int Add([FromBody] Employee employee)
         {
             _Logger.LogInformation("Api. Добавление сотрудника: {0}", employee);
             return _EmployeesData.Add(employee);
