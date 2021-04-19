@@ -61,6 +61,7 @@ namespace WebStore.Controllers
                 OrderViewModel = OrderModel,
                 Items = _CartServices.GetViewModel().Items.Select(item => new OrderItemDTO
                 {
+                    Id = item.Product.Id,
                     Price = item.Product.Price,
                     Quantity = item.Quantity
                 }).ToList()
