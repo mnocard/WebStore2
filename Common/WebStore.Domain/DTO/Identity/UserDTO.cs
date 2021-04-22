@@ -9,7 +9,7 @@ namespace WebStore.Domain.DTO.Identity
         public User User { get; set; }
     }
 
-    public class AddloginDTO : UserDTO
+    public class AddLoginDTO : UserDTO
     {
         public UserLoginInfo UserLoginInfo { get; set; }
     }
