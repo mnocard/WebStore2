@@ -35,22 +35,8 @@ namespace WebStore
                // после регистрации клиентов Identity следующа€ строчка не нужна, так как пользователи
                // больше не буду хранитьс€ в бд. ¬место этого мы дальше сделаем собственное реализацию хранилища
                //.AddEntityFrameworkStores<WebStoreDB>()
+               .AddIdentityBuilderExtesion()
                .AddDefaultTokenProviders();
-
-            #region ’ранилище дл€ Identity
-
-            services.AddTransient<IUserStore<User>, UsersClient>();
-            services.AddTransient<IUserRoleStore<User>, UsersClient>();
-            services.AddTransient<IUserPasswordStore<User>, UsersClient>();
-            services.AddTransient<IUserEmailStore<User>, UsersClient>();
-            services.AddTransient<IUserPhoneNumberStore<User>, UsersClient>();
-            services.AddTransient<IUserTwoFactorStore<User>, UsersClient>();
-            services.AddTransient<IUserLoginStore<User>, UsersClient>();
-            services.AddTransient<IUserClaimStore<User>, UsersClient>();
-
-            services.AddTransient<IRoleStore<Role>, RolesClient>();
-
-            #endregion
 
             services.Configure<IdentityOptions>(opt =>
             {
