@@ -64,8 +64,9 @@ namespace WebStore.ServiceHosting
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer webStoreDb)
         {
+            webStoreDb.Initialize();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

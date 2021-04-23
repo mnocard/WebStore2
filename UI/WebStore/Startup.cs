@@ -28,12 +28,8 @@ namespace WebStore
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebStoreDB>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("Default"))
-                //.EnableSensitiveDataLogging(true)
-                //.LogTo(Console.WriteLine)
-                );
-            services.AddTransient<WebStoreDbInitializer>();
+            
+            //services.AddTransient<WebStoreDbInitializer>();
 
             services.AddIdentity<User, Role>()
                // после регистрации клиентов Identity следующая строчка не нужна, так как пользователи
@@ -87,15 +83,9 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            //services.AddTransient<IEmployeesData, InMemoryEmployeesData>();
             services.AddTransient<IEmployeesData, EmployeesClient>();
-
-            //services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<IProductData, ProductsClient>();
-
-            //services.AddScoped<IOrderService, SqlOrderService>();
             services.AddScoped<IOrderService, OrderClient>();
-
             services.AddScoped<IValueService, ValuesClient>();
 
             services.AddScoped<ICartServices, InCookiesCartService>();
@@ -109,9 +99,8 @@ namespace WebStore
                .AddRazorRuntimeCompilation();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            db.Initialize();
 
             if (env.IsDevelopment())
             {
