@@ -9,7 +9,7 @@ using WebStore.Interfaces;
 
 namespace WebStore.Clients.Identity
 {
-    public class RolesClient : BaseClient
+    public class RolesClient : BaseClient, IRoleStore<Role>
     {
         public RolesClient(IConfiguration config) : base(config, WebApi.Identity.Roles) { }
 
