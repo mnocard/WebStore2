@@ -61,6 +61,7 @@ namespace WebStore.ServiceHosting
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebStore.ServiceHosting", Version = "v1" });
+                c.IncludeXmlComments("WebStore.ServiceHosting.xml");
             });
         }
 
