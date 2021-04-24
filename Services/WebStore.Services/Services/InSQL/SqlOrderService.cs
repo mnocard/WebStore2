@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.Logging;
 using WebStore.DAL.Context;
 using WebStore.Domain.DTO;
 using WebStore.Domain.Entities.Identity;
@@ -19,11 +19,13 @@ namespace WebStore.Services.Services.InSQL
     {
         private readonly WebStoreDB _db;
         private readonly UserManager<User> _UserManager;
+        private readonly ILogger _Logger;
 
-        public SqlOrderService(WebStoreDB db, UserManager<User> UserManager)
+        public SqlOrderService(WebStoreDB db, UserManager<User> UserManager, ILogger<SqlOrderService> Logger)
         {
             _db = db;
             _UserManager = UserManager;
+            _Logger = Logger;
         }
 
         public async Task<IEnumerable<OrderDTO>> GetUserOrders(string UserName) => (await _db.Orders
@@ -41,9 +43,13 @@ namespace WebStore.Services.Services.InSQL
 
         public async Task<OrderDTO> CreateOrder(string UserName, CreateOrderModel OrderModel)
         {
+            _Logger.LogInformation("Формирование нового заказа.");
             var user = await _UserManager.FindByNameAsync(UserName);
             if (user is null)
+            {
+                _Logger.LogError("Пользователь, формирующий заказ, с именем {0} в БД отсутствует.", UserName);
                 throw new InvalidOperationException($"Пользователь с именем {UserName} в БД отсутствует");
+            }
 
             await using var transaction = await _db.Database.BeginTransactionAsync();
 
@@ -92,6 +98,8 @@ namespace WebStore.Services.Services.InSQL
             await _db.SaveChangesAsync();
 
             await transaction.CommitAsync();
+
+            _Logger.LogInformation("Заказ для пользователя с именем {0} сформирован.", UserName);
 
             return order.ToDTO();
         }
