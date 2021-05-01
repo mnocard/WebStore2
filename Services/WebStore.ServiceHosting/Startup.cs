@@ -61,11 +61,13 @@ namespace WebStore.ServiceHosting
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebStore.ServiceHosting", Version = "v1" });
+                c.IncludeXmlComments("WebStore.ServiceHosting.xml");
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDbInitializer webStoreDb)
         {
+            webStoreDb.Initialize();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
