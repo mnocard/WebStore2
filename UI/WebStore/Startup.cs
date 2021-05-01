@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using WebStore.Clients.Employees;
 using WebStore.Clients.Identity;
 using WebStore.Clients.Orders;
@@ -14,9 +15,14 @@ using WebStore.Clients.Products;
 using WebStore.Clients.Values;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Conventions;
+using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestApi;
+
 using WebStore.Services.Services;
+
+using WebStore.Logger;
+
 using WebStore.Services.Services.InCookies;
 
 namespace WebStore
@@ -29,8 +35,8 @@ namespace WebStore
             //services.AddTransient<WebStoreDbInitializer>();
 
             services.AddIdentity<User, Role>()
-               // после регистрации клиентов Identity следующая строчка не нужна, так как пользователи
-               // больше не буду храниться в бд. Вместо этого мы дальше сделаем собственное реализацию хранилища
+               // ГЇГ®Г±Г«ГҐ Г°ГҐГЈГЁГ±ГІГ°Г Г¶ГЁГЁ ГЄГ«ГЁГҐГ­ГІГ®Гў Identity Г±Г«ГҐГ¤ГіГѕГ№Г Гї Г±ГІГ°Г®Г·ГЄГ  Г­ГҐ Г­ГіГ¦Г­Г , ГІГ ГЄ ГЄГ ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГЁ
+               // ГЎГ®Г«ГјГёГҐ Г­ГҐ ГЎГіГ¤Гі ГµГ°Г Г­ГЁГІГјГ±Гї Гў ГЎГ¤. Г‚Г¬ГҐГ±ГІГ® ГЅГІГ®ГЈГ® Г¬Г» Г¤Г Г«ГјГёГҐ Г±Г¤ГҐГ«Г ГҐГ¬ Г±Г®ГЎГ±ГІГўГҐГ­Г­Г®ГҐ Г°ГҐГ Г«ГЁГ§Г Г¶ГЁГѕ ГµГ°Г Г­ГЁГ«ГЁГ№Г 
                //.AddEntityFrameworkStores<WebStoreDB>()
                .AddIdentityBuilderExtesion()
                .AddDefaultTokenProviders();
@@ -83,8 +89,9 @@ namespace WebStore
                .AddRazorRuntimeCompilation();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
+            log.AddLog4net();
 
             if (env.IsDevelopment())
             {
@@ -97,6 +104,8 @@ namespace WebStore
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<ErrorHadlingMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
