@@ -16,6 +16,7 @@ using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestApi;
+using WebStore.Services.Services;
 using WebStore.Services.Services.InCookies;
 
 namespace WebStore
@@ -70,7 +71,8 @@ namespace WebStore
             services.AddScoped<IOrderService, OrderClient>();
             services.AddScoped<IValueService, ValuesClient>();
 
-            services.AddScoped<ICartServices, InCookiesCartService>();
+            services.AddScoped<ICartServices, CartService>();
+            services.AddScoped<ICartStore, InCookiesCartStore>();
 
             services
                .AddControllersWithViews(
