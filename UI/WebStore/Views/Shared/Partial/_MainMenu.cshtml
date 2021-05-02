@@ -20,7 +20,7 @@
     <li><a asp-controller="Home" asp-action="Error404" class="@IsActive("Home", "Error404")">404</a></li>
     <li><a href="#">Контакты</a></li>
     <li><a asp-controller="Employees" asp-action="Index" class="@IsActive("Employees")">Сотрудники</a></li>
-    <li><a asp-controller="Values" asp-action="Index" class="@IsActive("Values")">Values</a></li>
+    <li><a is-active-route asp-controller="Values" asp-action="Index" class="@IsActive("Values")">Values</a></li>
 </ul>
 
 @functions
