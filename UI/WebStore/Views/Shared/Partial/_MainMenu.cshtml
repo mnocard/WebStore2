@@ -1,7 +1,7 @@
 ﻿<ul class="nav navbar-nav collapse navbar-collapse">
     <li><a asp-controller="Home" asp-action="Index" class="@IsActive("Home")">Home</a></li>
     <li class="dropdown">
-        <a asp-controller="Catalog" asp-action="Index" class="@IsActive("Catalog")">Магазин<i class="fa fa-angle-down"></i></a>
+        <a asp-controller="Catalog" asp-action="Index" is-active-route >Магазин<i class="fa fa-angle-down"></i></a>
         <ul role="menu" class="sub-menu">
             <li><a asp-controller="Catalog" asp-action="Index" class="container @IsActive("Catalog")">Каталог</a></li>
             <li><a href="#">О товаре</a></li>
