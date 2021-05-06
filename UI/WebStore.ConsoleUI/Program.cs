@@ -9,15 +9,19 @@ namespace WebStore.ConsoleUI
         static void Main(string[] args)
         {
             Console.ReadKey();
-            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            var configuration = new ConfigurationBuilder()
+               .AddJsonFile("appsettings.json")
+               .Build();
 
-            var clients = new ProductsClient(builder);
+            var products_client = new ProductsClient(configuration);
 
-            var product = clients.GetProducts();
-            foreach (var item in product)
-            {
-                Console.WriteLine($"{item.Name} - {item.Price}");
-            }
+            Console.WriteLine("К запросу готов!");
+            Console.ReadLine();
+
+            foreach (var product in products_client.GetProducts().Products)
+                Console.WriteLine("{0} - {1}", product.Name, product.Price);
+
+            Console.WriteLine("Запрос завершён");
             Console.ReadKey();
         }
     }
