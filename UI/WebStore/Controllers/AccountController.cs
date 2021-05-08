@@ -30,6 +30,13 @@ namespace WebStore.Controllers
         #region Register
 
         [AllowAnonymous]
+        public async Task<IActionResult> IsNameFree(string UserName)
+        {
+            var user = await _UserManager.FindByNameAsync(UserName);
+            return Json(user is null ? true : "Пользователь с таким именем уже существует");
+        }
+
+        [AllowAnonymous]
         public IActionResult Register() => View(new RegisterUserViewModel());
 
         [AllowAnonymous]
@@ -68,7 +75,7 @@ namespace WebStore.Controllers
                     string.Join(",", registration_result.Errors.Select(e => e.Description)));
 
                 foreach (var error in registration_result.Errors)
-                    ModelState.AddModelError("", error.Description); 
+                    ModelState.AddModelError("", error.Description);
             }
 
             return View(Model);
@@ -131,5 +138,7 @@ namespace WebStore.Controllers
             ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
+
+
     }
 }
