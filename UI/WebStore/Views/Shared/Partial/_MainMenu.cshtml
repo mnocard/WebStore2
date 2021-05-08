@@ -20,7 +20,13 @@
     <li><a asp-controller="Home" asp-action="Error404" is-active-route>404</a></li>
     <li><a href="#">Контакты</a></li>
     <li><a asp-controller="Employees" asp-action="Index" class="@IsActive("Employees")">Сотрудники</a></li>
-    <li><a is-active-route asp-controller="Values" asp-action="Index">Values</a></li>
+    <li class="dropdown">
+        <a href="#">Тесты<i class="fa fa-angle-down"></i></a>
+        <ul role="menu" class="sub-menu">
+            <li><a asp-controller="WebAPI" asp-action="Index" class="@IsActive("WebAPI")">WebAPI</a></li>
+            <li><a is-active-route asp-controller="AjaxTest" asp-action="Index">AJAX</a></li>
+        </ul>
+    </li>
 </ul>
 
 @functions
